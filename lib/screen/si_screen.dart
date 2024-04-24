@@ -1,82 +1,73 @@
-import 'package:flutter/cupertino.dart';
+import 'package:class_app/model/si_model.dart';
 import 'package:flutter/material.dart';
 
 class SimpleInterestScreen extends StatefulWidget {
   const SimpleInterestScreen({super.key});
-
 
   @override
   State<SimpleInterestScreen> createState() => _SimpleInterestScreenState();
 }
 
 class _SimpleInterestScreenState extends State<SimpleInterestScreen> {
+  // Global Key
+  final mykey = GlobalKey<FormState>();
 
-  double result = 0;
-  double? principle;
-  double? rate;
-  double? time;
-
+  SimpleInterestModel? simpleInterestModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[100],
       appBar: AppBar(
-        title: const Text("Simple Interest"),
-        backgroundColor: Colors.yellow[200],
-        centerTitle: true,
-        elevation: 0,
+        title: const Text('Simple Interest'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-                onChanged: (value){
-                  principle = double.parse(value);
+        padding: const EdgeInsets.all(8.0),
+        child: Form(
+          key: mykey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter first No';
+                  }
+                  return null;
                 },
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Enter principle', border: OutlineInputBorder())
-            ),
-            SizedBox(height: 10,),
-            TextField(
-              onChanged: (value){
-                rate= double.parse(value);
-              },
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Enter rate', border: OutlineInputBorder()),
-            ),
-            SizedBox(height: 10,),
-            TextField(
-              onChanged: (value){
-                time = double.parse(value);
-              },
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Enter time', border: OutlineInputBorder()),
-            ),
-            SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: (){
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter first No';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Enter first No';
+                  }
+                  return null;
+                },
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  //check for the validation
+                  if (mykey.currentState!.validate()) {}
                   setState(() {
-                    result = (principle! * rate! * time!)/100;
+
+                    // simpleInterestModel =
+                    //     SimpleInterestModel(principle: principle!, rate: rate!, time: time!);
+                    // result = simpleInterestModelModel!.si();
                   });
                 },
-                child: Text('Calculate', style: TextStyle(fontSize: 30),),
-              ),
-            ),
-            SizedBox(height: 20),
-
-            SizedBox(height: 20),
-            Text(
-              'Result: $result',
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
+                child: const Text('Calculate'),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
